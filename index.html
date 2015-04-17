@@ -46,9 +46,40 @@
 </p>
 
 <h3>
-<a id="rather-drive-stick" class="anchor" href="#rather-drive-stick" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<a id="rather-drive-stick" class="anchor" href="#rather-drive-stick" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>
+	La première chose à faire est de copier le plugin Media dans le dossier Plugin de votre application. Pour cela vous pouvez télécharger le .zip ou cloner directement le dépôt
+</p>
+<pre>
+	<code>
+		git clone git@github.com:anouarcharif/CakePHP3-Media.git Media
+	</code>
+</pre>
+<p>
+Ensuite il vous faut charger le plugin, pour cela dans votre fichier <strong>bootstrap.php</strong> et utiliser le syntaxe suivant:
+<pre>
+	<code>
+	Plugin::load('Media', ['autoload' => true, 'routes' => true]);
+	</code>
+</pre>
+</p>
+<p>
+	Voila ! le plugin est bien chargé, vous pouvez maintenant créer la table qui va permettre de gérer les différents médias. Pour cela il faut utiliser la requête suivante:
+	<pre>
+		<code>
+			CREATE TABLE  `medias` (
+			`id` INT( 11 ) NOT NULL AUTO_INCREMENT ,
+			 `ref` VARCHAR( 25 ) NOT NULL ,
+			 `ref_id` INT( 11 ) NOT NULL ,
+			 `file` VARCHAR( 255 ) DEFAULT NULL ,
+			 `position` INT( 11 ) NOT NULL DEFAULT  '0',
+			PRIMARY KEY (  `id` ) ,
+			KEY  `id` (  `id` ,  `ref` ,  `position` )
+			) ENGINE = INNODB DEFAULT CHARSET = latin1;
+		</code>
+	</pre>
+</p>
 
 <h3>
 <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
