@@ -116,8 +116,6 @@ public function canUploadMedias($table, $id){
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
-use Cake\Utility\Security;
-use Cake\Validation\Validator;
 
 
 class MembersTable extends Table
@@ -214,7 +212,8 @@ Maintenant que tout est en place il faut pouvoir ajouter, éditer et supprimer d
 	Soit vous pouvez créer une iframe vers le gestionnaire de média :
 	<pre>
 		<code>
-			<?php echo $this->Media->iframe('MODEL',ID); ?>
+			// MODEL en pluriel
+			echo $this->Media->iframe('TABLES',ID);
 		</code>
 	</pre>
 </p>
@@ -222,14 +221,34 @@ Maintenant que tout est en place il faut pouvoir ajouter, éditer et supprimer d
 	Ou au sain d'un formulaire ($this->Form->create()) vous pouvez créer un champs utilisant tinyMCE, CKEditor et Redactor.js, cette méthode prend les même paramètre que la méthode FormHelper::input.
 	<pre>
 		<code>
-	<?php
-	echo $this->Media->tinymce($fieldName, $refName, $refID, $options = array ( ));
-	echo $this->Media->ckeditor($fieldName, $refName, $refID, $options = array ( ));
-	echo $this->Media->redactor($fieldName, $refName, $refID, $options = array ( ));
-	?>
+		// $refName est en pluriel
+		echo $this->Media->tinymce($fieldName, $refName, $refID, $options = array ( ));
+		echo $this->Media->ckeditor($fieldName, $refName, $refID, $options = array ( ));
+		echo $this->Media->redactor($fieldName, $refName, $refID, $options = array ( ));
 		</code>
 	</pre>
 </p>
+
+<a id="redim" class="anchor" href="#redim" aria-hidden="true"><span class="octicon octicon-link"></span></a>Redimensionnement</h3>
+<p>
+	Utilisez <a href="https://github.com/anouarcharif/CakePHP3-ImageHelper/">l'ImageHelper</a>.
+</p>
+<p>
+Maintenant que vous avez vos outils pour ajouter et récupérer les images il est temps de les afficher et de les redimensionner. <br />
+Cela se fait encore depuis le helper Media
+</p>
+<p>
+	Par exemple si je veux une version 200x200 de l'image webroot/img/test.jpg
+	<pre>
+	<code>
+<?php echo $this->Media->image('/img/test.png', 200, 200, array('class' => 'avatar')); ?>
+
+// génèrera le code suivant
+<img src="/img/test_150x150.jpg" width="200" height="200" class="avatar">
+	</code>
+	</pre>
+</p>
+
         </section>
 
         <aside id="sidebar">
