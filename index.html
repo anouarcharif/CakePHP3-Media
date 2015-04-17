@@ -84,15 +84,65 @@ Ensuite il vous faut charger le plugin, pour cela dans votre fichier <strong>boo
 <h3>
 <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Utilisation</h3>
 
-<p>
-	<h4>
-		Permissions
-	</h4>
-	<div class="notif warning">
-		Par défaut, le plugin est bloqué pour tout le monde.
-	</div>
-</p>
 
+<h3>
+	Permissions
+</h3>
+<div class="notif warning">
+	Par défaut, le plugin est bloqué pour tout le monde.
+</div>
+<p>
+Pour définir les permission vous pouvez bloquer les actions du plugin depuis votre AppController avec les méthodes par défaut. Pour des permissions plus affinées vous pouvez définir une fonction canUploadMedias($model, $id) dans votre AppController.
+Par exemple :
+<pre>
+	<code>
+		public function canUploadMedias($table, $id){
+			if($table == 'Users' & $id = $this->Session->read('Auth.User.id')){
+				return true; // Chaque utilisateur peut modifier les médias de son profil
+			}
+			return $this->Session->read('Auth.User.role') == 'admin'; // seule l'administrateur peut gérer l'ensemble des médias.
+		}
+	</code>
+</pre>
+</p>
+<h3>
+	Le Behaviour
+</h3>
+<p>
+	Pour utiliser le plugin Media vous devez d'abord charger le Behaviour sur vos models. Par exemple si pour mes membres je veux pouvoir avec des images liées :
+	
+	<pre>
+		<code>
+	//src/Model/Table/MembresTable.php
+
+			namespace App\Model\Table;
+
+			use Cake\ORM\Table;
+			use Cake\Utility\Security;
+			use Cake\Validation\Validator;
+
+
+			class MembersTable extends Table
+			{
+				public function initialize(array $config)
+				{
+					$this->addBehavior('Media.Media', 
+							[
+								'refName' => 'Member',
+								'path' => '/img/uploads/%y/%m/%f',
+								'extensions' => array('jpg', 'png', 'bmp', 'gif'),
+								'limit' => 0,
+								'max_width' => 0,
+								'max_height' => 0,
+								'size' => 0
+							]
+					);
+				}
+			}
+
+		</code>
+	</pre>
+</p>
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
