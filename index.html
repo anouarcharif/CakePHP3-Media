@@ -82,12 +82,10 @@ Ensuite il vous faut charger le plugin, pour cela dans votre fichier <strong>boo
 </p>
 <hr />
 <h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Utilisation</h3>
 
 
-<h3>
-	Permissions
-</h3>
+<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Permission</h3>
+
 <div class="notif warning">
 	Par défaut, le plugin est bloqué pour tout le monde.
 </div>
@@ -96,12 +94,12 @@ Pour définir les permission vous pouvez bloquer les actions du plugin depuis vo
 Par exemple :
 <pre>
 	<code>
-		public function canUploadMedias($table, $id){
-			if($table == 'Users' & $id = $this->Session->read('Auth.User.id')){
-				return true; // Chaque utilisateur peut modifier les médias de son profil
-			}
-			return $this->Session->read('Auth.User.role') == 'admin'; // seule l'administrateur peut gérer l'ensemble des médias.
-		}
+public function canUploadMedias($table, $id){
+	if($table == 'Users' & $id = $this->Session->read('Auth.User.id')){
+		return true; // Chaque utilisateur peut modifier les médias de son profil
+	}
+	return $this->Session->read('Auth.User.role') == 'admin'; // seule l'administrateur peut gérer l'ensemble des médias.
+}
 	</code>
 </pre>
 </p>
@@ -113,40 +111,125 @@ Par exemple :
 	
 	<pre>
 		<code>
-	//src/Model/Table/MembresTable.php
+//src/Model/Table/MembresTable.php
 
-			namespace App\Model\Table;
+namespace App\Model\Table;
 
-			use Cake\ORM\Table;
-			use Cake\Utility\Security;
-			use Cake\Validation\Validator;
+use Cake\ORM\Table;
+use Cake\Utility\Security;
+use Cake\Validation\Validator;
 
 
-			class MembersTable extends Table
-			{
-				public function initialize(array $config)
-				{
-					$this->addBehavior('Media.Media', 
-							[
-								'refName' => 'Member',
-								'path' => '/img/uploads/%y/%m/%f',
-								'extensions' => array('jpg', 'png', 'bmp', 'gif'),
-								'limit' => 0,
-								'max_width' => 0,
-								'max_height' => 0,
-								'size' => 0
-							]
-					);
-				}
-			}
+class MembersTable extends Table
+{
+	public function initialize(array $config)
+	{
+		$this->addBehavior('Media.Media', 
+				[
+					'refName' => 'Member',
+					'path' => '/img/uploads/%y/%m/%f',
+					'extensions' => array('jpg', 'png', 'bmp', 'gif'),
+					'limit' => 0,
+					'max_width' => 0,
+					'max_height' => 0,
+					'size' => 0
+				]
+		);
+	}
+}
 
 		</code>
 	</pre>
+	Le behaviour prend plusieurs options.
+	<ul>
+		<li>
+			path "img/uploads/%y/%m/%f" - Permet de définir le chemin ou sera stocké l'image par rapport au dossier app/webroot
+			<ul>
+				<li>
+					%y Année d'upload de l'image
+				</li>
+				<li>
+					%m Mois d'upload de l'image
+				</li>
+				<li>
+					%d Jour d'upload de l'image
+				</li>
+				<li>
+					%f Nom du fichier uploadé (sans l'extension et avec un Inflector::slug())
+				</li>
+				<li>
+					%id ID du média
+				</li>
+				<li>
+					%cid ID du média divisé par 100 et arrondit à l'entier suppérieur
+				</li>
+				<li>
+					%mid ID du média divisé par 1000 et arrondit à l'entier suppérieur
+				</li>
+			</ul>
+		</li>
+		<li>
+			<strong>extensions</strong> ['jpg','png'] - Permet de définir les extensions (minuscules) autorisées pour le plugin
+		</li>
+		<li>
+			<strong>limit</strong> entier - permet de spécifier le nombre maximum de médias qu'un membre peut uploader.
+		</li>
+		<li>
+			<strong>max_width</strong> entier - permet de spécifier la largeur maximum qu'un média peut avoir.
+		</li>
+		<li>
+			<strong>max_height</strong> entier - permet de spécifier la hauteur maximum qu'un média peut avoir.
+		</li>
+		<li>
+			<strong>size</strong> entier - la taille maximum qu'un média peut avoir (0 par défaut et ce n'est pas pris en compte).
+		</li>
+	</ul>
+</p>
+<p>
+Ce behaviour rajoute 2 liaisons à votre table/model :
+<ul>
+	<li>
+		belongsTo Thumb, afin de récupérer l'image à la une de votre contenu. Ne fonctionne que si votre table à un champs <strong>media_id</strong>
+	</li>
+	<li>
+		hasMany, permet de récupérer toutes les images liées à un contenu.
+	</li>
+</ul>
+</p>
+<p>
+	Et plusieurs champs lors d'un AppModel::find() si vous ajoutez la liaison avec le model Thumb
+	<ul>
+		<li>
+			Un champs "thumb" contenant l'url de l'image à la une sera ajouté aux champs de votre table/model
+		</li>
+	</ul>
 </p>
 <h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Helper</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="https://help.github.com/pages">https://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>
+Maintenant que tout est en place il faut pouvoir ajouter, éditer et supprimer des images. <br />Pour réaliser cela le plugin apporte un helper "Media" qui vous permet de générer une interface drag & drop rapidement. Cet helper fonctionne de 2 façon :
+</p>
+<p>
+	Soit vous pouvez créer une iframe vers le gestionnaire de média :
+	<pre>
+		<code>
+			<?php echo $this->Media->iframe('MODEL',ID); ?>
+		</code>
+	</pre>
+</p>
+<p>
+	Ou au sain d'un formulaire ($this->Form->create()) vous pouvez créer un champs utilisant tinyMCE, CKEditor et Redactor.js, cette méthode prend les même paramètre que la méthode FormHelper::input.
+	<pre>
+		<code>
+	<?php
+	echo $this->Media->tinymce($fieldName, $refName, $refID, $options = array ( ));
+	echo $this->Media->ckeditor($fieldName, $refName, $refID, $options = array ( ));
+	echo $this->Media->redactor($fieldName, $refName, $refID, $options = array ( ));
+	?>
+		</code>
+	</pre>
+</p>
         </section>
 
         <aside id="sidebar">
