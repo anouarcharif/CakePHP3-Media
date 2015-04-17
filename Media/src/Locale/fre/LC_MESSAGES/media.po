@@ -1,0 +1,117 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Media Plugin\n"
+"POT-Creation-Date: 2013-06-09 17:18+0000\n"
+"PO-Revision-Date: 2013-06-09 19:19+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: eng\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: Model/Media.php:46
+msgid "Le model '%s' n'a pas le comportement 'Media'"
+msgstr "%s Model does not have Media behavior attached"
+
+#: Model/Media.php:56
+msgid "Vous ne pouvez pas uploader ce type de fichier (%s seulement)"
+msgstr "You don't have the permission to upload this filetype"
+
+#: View/Medias/index.ctp:9 View/Medias/media.ctp:28
+msgid "Nom du fichier"
+msgstr "Filename"
+
+#: View/Medias/index.ctp:15 View/Medias/media.ctp:35
+msgid "Titre"
+msgstr "Title"
+
+#: View/Medias/index.ctp:19 View/Medias/media.ctp:39
+msgid "Texte alternatif"
+msgstr "Alt"
+
+#: View/Medias/index.ctp:23 View/Medias/media.ctp:43
+msgid "Cible du lien"
+msgstr "Link"
+
+#: View/Medias/index.ctp:27 View/Medias/media.ctp:47
+msgid "Alignement"
+msgstr "Alignment"
+
+#: View/Medias/index.ctp:30
+msgid "Aucun"
+msgstr "None"
+
+#: View/Medias/index.ctp:33
+msgid "Gauche"
+msgstr "Left"
+
+#: View/Medias/index.ctp:36
+msgid "Centre"
+msgstr "Center"
+
+#: View/Medias/index.ctp:39
+msgid "Droite"
+msgstr "Right"
+
+#: View/Medias/index.ctp:45 View/Medias/media.ctp:65
+msgid "Insérer dans l'article"
+msgstr "Insert"
+
+#: View/Medias/index.ctp:54
+msgid "Déplacer les fichiers ici"
+msgstr "Drop files here"
+
+#: View/Medias/index.ctp:55
+msgid "ou"
+msgstr "or"
+
+#: View/Medias/index.ctp:56
+msgid "Parcourir"
+msgstr "Browse"
+
+#: View/Medias/index.ctp:57
+msgid "%s seulement"
+msgstr "%s only"
+
+#: View/Medias/index.ctp:63
+msgid "Médias"
+msgstr "Medias"
+
+#: View/Medias/index.ctp:65
+msgid "Actions"
+msgstr "Actions"
+
+#: View/Medias/index.ctp:157
+msgid "Voulez vous vraiment supprimer ce média ?"
+msgstr "Do you really want to delete this file ?"
+
+#: View/Medias/index.ctp:169;178 View/Medias/media.ctp:19
+msgid "Afficher"
+msgstr "Show"
+
+#: View/Medias/index.ctp:170
+msgid "Cacher"
+msgstr "Hide"
+
+#: View/Medias/media.ctp:12
+msgid "Mettre en image à la une"
+msgstr "Use as thumbnail"
+
+#: View/Medias/media.ctp:14;65
+msgid "Supprimer"
+msgstr "Delete"
+
+#: View/Medias/media.ctp:17
+msgid "Insérer le lien l'article"
+msgstr "Insert"
+
+#: View/Medias/media.ctp:29
+msgid "Taille de l'image"
+msgstr "Image size"
