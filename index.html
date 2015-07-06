@@ -212,8 +212,8 @@ Maintenant que tout est en place il faut pouvoir ajouter, éditer et supprimer d
 	Soit vous pouvez créer une iframe vers le gestionnaire de média :
 	<pre>
 		<code>
-			// MODEL en pluriel
-			echo $this->Media->iframe('TABLES',ID);
+			// MODEL en singulier
+			echo $this->Media->iframe('TABLE',ID);
 		</code>
 	</pre>
 </p>
@@ -221,7 +221,7 @@ Maintenant que tout est en place il faut pouvoir ajouter, éditer et supprimer d
 	Ou au sain d'un formulaire ($this->Form->create()) vous pouvez créer un champs utilisant tinyMCE, CKEditor et Redactor.js, cette méthode prend les même paramètre que la méthode FormHelper::input.
 	<pre>
 		<code>
-		// $refName est en pluriel
+		// $refName est en singulier
 		echo $this->Media->tinymce($fieldName, $refName, $refID, $options = array ( ));
 		echo $this->Media->ckeditor($fieldName, $refName, $refID, $options = array ( ));
 		echo $this->Media->redactor($fieldName, $refName, $refID, $options = array ( ));
