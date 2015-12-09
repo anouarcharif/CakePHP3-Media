@@ -27,8 +27,9 @@ class MediasController extends AppController {
         }
     }
 
-    public function beforeFilter(){
-        parent::beforeFilter();
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
         $this->loadModel("Media.Medias");
         $this->layout = 'uploader';
         if(in_array('Security', $this->components)){
