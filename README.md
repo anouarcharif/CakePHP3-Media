@@ -6,7 +6,7 @@ Le principe de ce plugin CakePHP est de vous permettre de créer une gestion d'i
 
 Documentation: http://anouarcharif.github.io/CakePHP3-Media/index.html
 
-N.B: Je viens de mettre à jour le plugin, désormais il faut appeler le plugin comme ça:
+N.B: Je viens de mettre à jour le plugin, désormais il faut appeler le plugin comme ça (ne n'ai pas encore eu le temps de mettre à jour la documentation aussi):
 
 // TABLES EN Pluriel au lieu du singuler
-echo $this->Media->iframe('TABLES',ID);
+echo $this->Media->iframe('TABLES',ID); 
