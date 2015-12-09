@@ -13,11 +13,13 @@ class MediasController extends AppController {
     public $order = ['Medias.position ASC'];
     public $helpers = ['Html'];
 
-   	public function isAuthorized($user = null){
+   public function isAuthorized($user = null)
+   {
         return true;
-    }
+   }
 
-    public function canUploadMedias($ref, $ref_id){
+    public function canUploadMedias($ref, $ref_id)
+    {
         if(method_exists('App\Controller\AppController', 'canUploadMedias')){
             return parent::canUploadMedias($ref, $ref_id);
         }else{
@@ -37,7 +39,9 @@ class MediasController extends AppController {
     /**
     * Liste les médias
     **/
-    public function index($ref, $ref_id){
+    
+    public function index($ref, $ref_id)
+    {
         if(!$this->canUploadMedias($ref, $ref_id)){
             throw new ForbiddenException();
         }
@@ -47,7 +51,6 @@ class MediasController extends AppController {
             return $this->render('nobehavior');
         }
         $id = isset($this->request->query['id']) ? $this->request->query['id'] : false;
-        $model = Inflector::singularize($ref);
         $medias = $this->Medias->find('all',array(
         	'conditions' => array('ref_id' => $ref_id,'ref' => $model)
         ))->all();
@@ -66,16 +69,17 @@ class MediasController extends AppController {
     /**
     * Upload (Ajax)
     **/
-    public function upload($ref, $ref_id){
+    public function upload($ref, $ref_id)
+    {
     	$this->layout = null;
         $this->autoRender = false;
         if(!$this->canUploadMedias($ref, $ref_id)){
             throw new ForbiddenException();
         }
         $media = $this->Medias->newEntity();
-	    $model = Inflector::singularize($ref);
-        if(isset($_FILES) && !empty($_FILES)) {
-        	$data['ref'] = $model;
+	
+	if(isset($_FILES) && !empty($_FILES)) {
+        	$data['ref'] = $ref;
 	        $data['ref_id'] = $ref_id;
 	        $data['file'] = $_FILES['file'];
 	        $new_media = $this->Medias->patchEntity($media, $data);
@@ -126,7 +130,7 @@ class MediasController extends AppController {
         $ref = $media->ref;
         $ref_id = $media->ref_id;
         $this->loadModel($ref);
-        $table = Inflector::pluralize($ref);
+        $table = $ref;
         $reference = $this->$table->get($ref_id);
         $reference->media_id = $id;
         $this->$table->save($reference);
