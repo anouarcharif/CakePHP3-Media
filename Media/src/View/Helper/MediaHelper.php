@@ -6,7 +6,11 @@ use Cake\View\Helper;
 
 class MediaHelper extends Helper{
 
-	public $helpers = array('Html','Form', 'Url');
+	public $helpers = [
+	    'Html',
+	    'Form',
+	    'Url'
+	];
 	public $javascript = false;
 	public $explorer = false;
 	
