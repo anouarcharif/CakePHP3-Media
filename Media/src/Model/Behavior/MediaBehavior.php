@@ -25,7 +25,7 @@ class MediaBehavior extends Behavior {
             'className' => 'Media.Medias',
             'foreignKey' => 'ref_id',
 			'order'		 => 'Media.position ASC',
-			'conditions' => 'ref = "'.$this->_table->medias['refName'].'"',
+			'conditions' => 'ref = "'.$this->_table->alias().'"',
 			'dependent'  => true
         ]);
 		if($this->_table->hasField('media_id')){
@@ -41,23 +41,22 @@ class MediaBehavior extends Behavior {
 	
 	
 	
-	public function afterSave($event, $entity, $options = array()){
-		if(!empty($this->request->data['thumb']['name'])){
-			$file = $this->request->data['thumb'];
-
-			// Current thumb
+	public function afterSave($event, $entity, $options = array())
+	{
+		if(isset($entity->thumb->name)){
+			$file = $entity->thumb;
 			$media_id = $entity->media_id;
 			if($media_id != 0){
 				$entity->Medias->delete($media_id);
 			}
 			$data = array(
-				'ref_id' => $model->id,
-				'ref'	 => $model->name,
+				'ref_id' => $entity->id,
+				'ref'	 => $entity->name,
 				'file'   => $file
 			);
-			$media = $this->Medias->newEntity($media);
-			$this->Medias->save($media);
-			$entity->media_id = $this->Medias->id;
+			$media = $this->Medias->newEntity($data);
+			$entity->saveField('media_id', $entity->Media->id);
+			
 		}
 	}
 
