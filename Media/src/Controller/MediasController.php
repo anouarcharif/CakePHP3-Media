@@ -53,7 +53,7 @@ class MediasController extends AppController {
         }
         $id = isset($this->request->query['id']) ? $this->request->query['id'] : false;
         $medias = $this->Medias->find('all',array(
-        	'conditions' => array('ref_id' => $ref_id,'ref' => $model)
+        	'conditions' => array('ref_id' => $ref_id, 'ref' => $ref)
         ))->all();
 		
         $thumbID = false;
