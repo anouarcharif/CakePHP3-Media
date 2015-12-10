@@ -92,6 +92,7 @@ class MediasController extends AppController {
 	        }
 	    }
         $this->loadModel($ref);
+        $thumbID = $this->$ref->hasField('media_id');
         $editor = isset($this->request->params['named']['editor']) ? $this->request->params['named']['editor'] : false;
         $id = isset($this->request->query['id']) ? $this->request->query['id'] : false;
         $this->set(compact('media', 'thumbID', 'editor', 'id'));
