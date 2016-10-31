@@ -1,5 +1,5 @@
 {
-    "name": "anouarcharif/CakePHP3-Media",
+    "name": "anouarcharif/cakephp3-media",
     "description": "Media plugin for CakePHP",
     "type": "cakephp-plugin",
     "require": {
