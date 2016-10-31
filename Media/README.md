@@ -1,11 +1,12 @@
-# Media plugin for CakePHP
+# CakePHP3-Media
 
-## Installation
+Tout d'abord, ce plugin CakePHP est une adaptation du plugin GrafikArt (CakePHP2).
 
-You can install this plugin into your CakePHP application using [composer](http://getcomposer.org).
+Le principe de ce plugin CakePHP est de vous permettre de créer une gestion d'image poussée pour vos contenu avec le moins de code possible. Le système repose sur un behaviour pour gérer l'association des média aux models et un helper pour gérer la partie administration des médias.
 
-The recommended way to install composer packages is:
+Documentation: http://anouarcharif.github.io/CakePHP3-Media/index.html
 
-```
-composer require your-name-here/Media
-```
+N.B: Je viens de mettre à jour le plugin, désormais il faut appeler le plugin comme ça (ne n'ai pas encore eu le temps de mettre à jour la documentation aussi):
+
+// TABLES EN Pluriel au lieu du singuler
+echo $this->Media->iframe('TABLES',ID);
