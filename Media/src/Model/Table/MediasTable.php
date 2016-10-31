@@ -167,7 +167,7 @@ class MediasTable extends Table
 
 			$this->move_uploaded_file($options['file']['tmp_name'], WWW_ROOT.$file);
 
-			pl@chmod(WWW_ROOT.$file, 0777);
+			@chmod(WWW_ROOT.$file, 0777);
 
 			$entity->file = '/' . trim(str_replace(DS, '/', $file), '/');
 
